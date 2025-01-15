@@ -1,0 +1,29 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+buildscript {
+    repositories {
+        google() // Google Maven 저장소
+        mavenCentral() // Maven Central 저장소
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1'
+    }
+}
+
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
